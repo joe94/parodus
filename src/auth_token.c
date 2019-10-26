@@ -110,10 +110,11 @@ int requestNewAuthToken(char *newToken, size_t len, int r_count)
 		/* set the cert for client authentication */
 		curl_easy_setopt(curl, CURLOPT_SSLCERT, get_parodus_cfg()->client_cert_path);
 
+        curl_easy_setopt(curl, CURLOPT_CAPATH, "/etc/ssl/certs"); 
 		curl_easy_setopt(curl, CURLOPT_CAINFO, get_parodus_cfg()->cert_path);
 
 		/* disconnect if it is failed to validate server's cert */
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
 
 		/* Perform the request, res will get the return code */
 		res = curl_easy_perform(curl);
